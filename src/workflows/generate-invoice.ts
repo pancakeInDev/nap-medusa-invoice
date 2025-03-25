@@ -13,21 +13,7 @@ import DocumentsModuleService, {
   GenerateInvoiceForOrderResult,
 } from "../modules/documents/service";
 import assignInvoiceToOrderWorkflow from "./assign-invoice";
-
-const retrieveOrderStep = createStep(
-  "retrieve-order",
-  async (order_id: string, { container }) => {
-    const orderModuleService = container.resolve(Modules.ORDER);
-    const order: OrderDTO = await orderModuleService.retrieveOrder(order_id, {
-      select: ["*", "item_total", "shipping_total", "tax_total"],
-      relations: ["shipping_address", "billing_address", "items"],
-    });
-    if (!order) {
-      throw new Error("Order not found in step retrieveOrderStep");
-    }
-    return new StepResponse(order);
-  }
-);
+import { retrieveOrderStep } from "./commonSteps";
 
 // Define the step outside the workflow
 const generateInvoiceStep = createStep(

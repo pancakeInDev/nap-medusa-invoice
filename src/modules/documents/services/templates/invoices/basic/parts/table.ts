@@ -2,7 +2,7 @@ import { generateHr } from "./hr";
 import { t } from "i18next";
 import { OrderDTO, OrderLineItemDTO } from "@medusajs/framework/types";
 import { getDecimalDigits } from "../../../../../utils/currency";
-import { BigNumber } from "@medusajs/framework/utils";
+import { BigNumber } from "@medusajs/utils";
 
 function amountToDisplay(amount: number, currencyCode: string): string {
   const decimalDigits = getDecimalDigits(currencyCode);
@@ -87,6 +87,12 @@ export function generateInvoiceTable(
   if (!order.shipping_total) {
     throw new Error("parts/table.ts: Shipping total is not defined");
   }
+  let shippingTotal = 0;
+  if ((order.shipping_total as BigNumber)?.numeric) {
+    shippingTotal = (order.shipping_total as BigNumber)?.numeric ?? 0;
+  } else {
+    shippingTotal = Number(order.shipping_total);
+  }
   generateTableRow(
     doc,
     subtotalPosition,
@@ -94,14 +100,17 @@ export function generateInvoiceTable(
     "",
     t("invoice-table-shipping", "Shipping"),
     "",
-    amountToDisplayNormalized(
-      (order.shipping_total as BigNumber)?.numeric ?? 0,
-      order.currency_code
-    )
+    amountToDisplayNormalized(shippingTotal, order.currency_code)
   );
   const taxPosition = subtotalPosition + 30;
   if (!order.tax_total) {
     throw new Error("parts/table.ts: Tax total is not defined");
+  }
+  let taxTotal = 0;
+  if ((order.tax_total as BigNumber)?.numeric) {
+    taxTotal = (order.tax_total as BigNumber)?.numeric ?? 0;
+  } else {
+    taxTotal = Number(order.tax_total);
   }
   generateTableRow(
     doc,
@@ -110,15 +119,18 @@ export function generateInvoiceTable(
     "",
     t("invoice-table-tax", "Tax"),
     "",
-    amountToDisplayNormalized(
-      (order.tax_total as BigNumber)?.numeric ?? 0,
-      order.currency_code
-    )
+    amountToDisplayNormalized(taxTotal, order.currency_code)
   );
   const duePosition = taxPosition + 45;
   doc.font("Bold");
   if (!order.total) {
     throw new Error("parts/table.ts: Order total is not defined");
+  }
+  let total = 0;
+  if ((order.total as BigNumber)?.numeric) {
+    total = (order.total as BigNumber)?.numeric ?? 0;
+  } else {
+    total = Number(order.total);
   }
   generateTableRow(
     doc,
@@ -127,10 +139,7 @@ export function generateInvoiceTable(
     "",
     t("invoice-table-total", "Total"),
     "",
-    amountToDisplayNormalized(
-      (order.total as BigNumber)?.numeric ?? 0,
-      order.currency_code
-    )
+    amountToDisplayNormalized(total, order.currency_code)
   );
   doc.font("Regular");
 }

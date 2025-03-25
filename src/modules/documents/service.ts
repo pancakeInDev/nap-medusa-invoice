@@ -1,4 +1,4 @@
-import { MedusaError, MedusaErrorTypes } from "@medusajs/utils";
+import { MedusaError } from "@medusajs/utils";
 import { MedusaService } from "@medusajs/framework/utils";
 import { ModulesSdkUtils } from "@medusajs/framework/utils";
 import { Logger, OrderDTO } from "@medusajs/framework/types";
@@ -24,11 +24,7 @@ import {
   generatePackingSlip,
   validateInputForProvidedKind as validatePackingSlipInputForProvidedKind,
 } from "./services/generators/packing-slip-generator";
-import {
-  DocumentInvoiceDTO,
-  DocumentInvoiceSettingsDTO,
-  DocumentPackingSlipDTO,
-} from "./types/dto";
+import { DocumentInvoiceDTO, DocumentPackingSlipDTO } from "./types/dto";
 import { DocumentInvoiceType } from "../../types/models";
 
 type ModuleOptions = {};
@@ -271,7 +267,7 @@ class DocumentsModuleService extends MedusaService({
   async generateTestInvoice(
     order: OrderDTO,
     templateKind: InvoiceTemplateKind
-  ): Promise<any> {
+  ): Promise<GenerateInvoiceForOrderResult> {
     const lastDocumentSettings = await this.listDocumentSettings(
       {},
       {
@@ -408,7 +404,6 @@ class DocumentsModuleService extends MedusaService({
               invoiceResult,
               order
             );
-            console.log("buffer nest", buffer);
             return {
               invoice: invoiceResult,
               buffer: buffer,
