@@ -84,6 +84,9 @@ export function generateInvoiceTable(
   }
 
   const subtotalPosition = invoiceTableTop + (i + 1) * 30;
+  if (!order.shipping_total) {
+    throw new Error("parts/table.ts: Shipping total is not defined");
+  }
   generateTableRow(
     doc,
     subtotalPosition,
@@ -92,12 +95,14 @@ export function generateInvoiceTable(
     t("invoice-table-shipping", "Shipping"),
     "",
     amountToDisplayNormalized(
-      (order.shipping_total as BigNumber).numeric,
+      (order.shipping_total as BigNumber)?.numeric ?? 0,
       order.currency_code
     )
   );
-
   const taxPosition = subtotalPosition + 30;
+  if (!order.tax_total) {
+    throw new Error("parts/table.ts: Tax total is not defined");
+  }
   generateTableRow(
     doc,
     taxPosition,
@@ -106,13 +111,15 @@ export function generateInvoiceTable(
     t("invoice-table-tax", "Tax"),
     "",
     amountToDisplayNormalized(
-      (order.tax_total as BigNumber).numeric,
+      (order.tax_total as BigNumber)?.numeric ?? 0,
       order.currency_code
     )
   );
-
   const duePosition = taxPosition + 45;
   doc.font("Bold");
+  if (!order.total) {
+    throw new Error("parts/table.ts: Order total is not defined");
+  }
   generateTableRow(
     doc,
     duePosition,
@@ -121,7 +128,7 @@ export function generateInvoiceTable(
     t("invoice-table-total", "Total"),
     "",
     amountToDisplayNormalized(
-      (order.total as BigNumber).numeric,
+      (order.total as BigNumber)?.numeric ?? 0,
       order.currency_code
     )
   );
