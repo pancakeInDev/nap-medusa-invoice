@@ -4,17 +4,20 @@
   "description": "A simple invoice plugin to generate invoices.",
   "author": "pancakeInDev",
   "license": "MIT",
+  "types": "./index.d.ts",
   "files": [
-    ".medusa/server"
+    ".medusa/server",
+    "dist"
   ],
   "exports": {
     "./package.json": "./package.json",
     "./admin/widgets/*": "./.medusa/server/src/admin/widgets/*.js",
     "./workflows": "./.medusa/server/src/workflows/index.js",
     "./.medusa/server/src/modules/*": "./.medusa/server/src/modules/*/index.js",
-    "./modules/*": "./.medusa/server/src/modules/*/index.js",
+    "./modules/*": "./dist/modules/*/index.js",
     "./providers/*": "./.medusa/server/src/providers/*/index.js",
-    "./*": "./.medusa/server/src/*.js"
+    "./*": "./.medusa/server/src/*.js",
+    "./**/*": "./.medusa/server/src/**/*.d.ts"
   },
   "keywords": [
     "medusa",
@@ -26,10 +29,10 @@
     "pdf"
   ],
   "scripts": {
-    "build": "medusa plugin:build && npm run copy-assets",
+    "build": "medusa plugin:build && tsc --emitDeclarationOnly && npm run copy-assets",
     "copy-assets": "cp -r src/modules/documents/assets .medusa/server/src/modules/documents/assets",
     "dev": "medusa plugin:develop",
-    "prepublishOnly": "medusa plugin:build && npm run copy-assets"
+    "prepublishOnly": "medusa plugin:build && tsc --emitDeclarationOnly && npm run copy-assets"
   },
   "devDependencies": {
     "@medusajs/admin-sdk": "2.6.1",
@@ -39,6 +42,7 @@
     "@medusajs/medusa": "2.6.1",
     "@medusajs/test-utils": "2.6.1",
     "@medusajs/ui": "4.0.4",
+    "@medusajs/utils": "^2.6.1",
     "@mikro-orm/cli": "6.4.3",
     "@mikro-orm/core": "6.4.3",
     "@mikro-orm/knex": "6.4.3",
@@ -50,11 +54,13 @@
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.2.25",
     "awilix": "^8.0.1",
+    "i18next": "^24.2.3",
     "pdfkit": "^0.16.0",
     "pg": "^8.13.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.54.2",
     "react-table": "^7.8.0",
     "stripe": "^17.7.0",
     "ts-node": "^10.9.2",
