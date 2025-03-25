@@ -29,12 +29,18 @@ import {
   DocumentInvoiceSettingsDTO,
   DocumentPackingSlipDTO,
 } from "./types/dto";
+import { DocumentInvoiceType } from "../../types/models";
 
 type ModuleOptions = {};
 
 type PgConnectionType = ReturnType<typeof ModulesSdkUtils.createPgConnection>;
 
 type InjectedDependencies = {};
+
+export interface GenerateInvoiceForOrderResult {
+  invoice: DocumentInvoiceType;
+  buffer: Buffer<ArrayBufferLike> | undefined;
+}
 
 class DocumentsModuleService extends MedusaService({
   DocumentInvoice,
@@ -343,7 +349,9 @@ class DocumentsModuleService extends MedusaService({
     return InvoiceTemplateKind.BASIC;
   }
 
-  async generateInvoiceForOrder(order?: OrderDTO): Promise<any> {
+  async generateInvoiceForOrder(
+    order?: OrderDTO
+  ): Promise<GenerateInvoiceForOrderResult | undefined> {
     if (order) {
       const lastDocumentSettings = await this.listDocumentSettings(
         {},
@@ -379,7 +387,6 @@ class DocumentsModuleService extends MedusaService({
             const nextNumber: string = await this.getNextInvoiceNumber(
               RESET_FORCED_NUMBER
             );
-
             const entryInvoice: any = {
               number: parseInt(nextNumber),
               displayNumber: invoiceSettings.numberFormat
@@ -392,17 +399,16 @@ class DocumentsModuleService extends MedusaService({
               invoice_settings_id: invoiceSettings.id,
               settings_id: lastDocumentSettings[0].id,
             };
-
             const invoiceResult = await this.createDocumentInvoices(
               entryInvoice
             );
-
             const buffer = await generateInvoice(
               calculatedTemplateKind,
               lastDocumentSettings[0],
               invoiceResult,
               order
             );
+            console.log("buffer nest", buffer);
             return {
               invoice: invoiceResult,
               buffer: buffer,
