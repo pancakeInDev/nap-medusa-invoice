@@ -1,0 +1,87 @@
+{
+  "name": "@nap-medusa/invoice",
+  "version": "0.0.1",
+  "description": "A simple invoice plugin to generate invoices.",
+  "author": "pancakeInDev",
+  "license": "MIT",
+  "files": [
+    ".medusa/server"
+  ],
+  "exports": {
+    "./package.json": "./package.json",
+    "./admin/widgets/*": "./.medusa/server/src/admin/widgets/*.js",
+    "./workflows": "./.medusa/server/src/workflows/index.js",
+    "./.medusa/server/src/modules/*": "./.medusa/server/src/modules/*/index.js",
+    "./modules/*": "./.medusa/server/src/modules/*/index.js",
+    "./providers/*": "./.medusa/server/src/providers/*/index.js",
+    "./*": "./.medusa/server/src/*.js"
+  },
+  "keywords": [
+    "medusa",
+    "plugin",
+    "medusa-plugin-invoice",
+    "medusa-plugin",
+    "medusa-v2",
+    "invoice",
+    "pdf"
+  ],
+  "scripts": {
+    "build": "medusa plugin:build && npm run copy-assets",
+    "copy-assets": "cp -r src/modules/documents/assets .medusa/server/src/modules/documents/assets",
+    "dev": "medusa plugin:develop",
+    "prepublishOnly": "medusa plugin:build && npm run copy-assets"
+  },
+  "devDependencies": {
+    "@medusajs/admin-sdk": "2.6.1",
+    "@medusajs/cli": "2.6.1",
+    "@medusajs/framework": "2.6.1",
+    "@medusajs/icons": "2.6.1",
+    "@medusajs/medusa": "2.6.1",
+    "@medusajs/test-utils": "2.6.1",
+    "@medusajs/ui": "4.0.4",
+    "@mikro-orm/cli": "6.4.3",
+    "@mikro-orm/core": "6.4.3",
+    "@mikro-orm/knex": "6.4.3",
+    "@mikro-orm/migrations": "6.4.3",
+    "@mikro-orm/postgresql": "6.4.3",
+    "@swc/core": "1.5.7",
+    "@types/node": "^20.0.0",
+    "@types/pdfkit": "^0.13.9",
+    "@types/react": "^18.3.2",
+    "@types/react-dom": "^18.2.25",
+    "awilix": "^8.0.1",
+    "pdfkit": "^0.16.0",
+    "pg": "^8.13.0",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-table": "^7.8.0",
+    "stripe": "^17.7.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2",
+    "vite": "^5.2.11",
+    "yalc": "^1.0.0-pre.53"
+  },
+  "peerDependencies": {
+    "@medusajs/admin-sdk": "2.6.1",
+    "@medusajs/cli": "2.6.1",
+    "@medusajs/framework": "2.6.1",
+    "@medusajs/icons": "2.6.1",
+    "@medusajs/medusa": "2.6.1",
+    "@medusajs/test-utils": "2.6.1",
+    "@medusajs/ui": "4.0.3",
+    "@mikro-orm/cli": "6.4.3",
+    "@mikro-orm/core": "6.4.3",
+    "@mikro-orm/knex": "6.4.3",
+    "@mikro-orm/migrations": "6.4.3",
+    "@mikro-orm/postgresql": "6.4.3",
+    "awilix": "^8.0.1",
+    "pg": "^8.13.0"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "moment": "^2.30.1"
+  }
+}
