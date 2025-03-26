@@ -7,6 +7,28 @@ settings:
 importers:
 
   .:
+    dependencies:
+      i18next:
+        specifier: ^24.2.3
+        version: 24.2.3(typescript@5.8.2)
+      pdfkit:
+        specifier: ^0.16.0
+        version: 0.16.0
+      prop-types:
+        specifier: ^15.8.1
+        version: 15.8.1
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.3.1(react@18.3.1)
+      react-hook-form:
+        specifier: ^7.54.2
+        version: 7.54.2(react@18.3.1)
+      react-table:
+        specifier: ^7.8.0
+        version: 7.8.0(react@18.3.1)
     devDependencies:
       '@medusajs/admin-sdk':
         specifier: 2.6.1
@@ -65,30 +87,9 @@ importers:
       awilix:
         specifier: ^8.0.1
         version: 8.0.1
-      i18next:
-        specifier: ^24.2.3
-        version: 24.2.3(typescript@5.8.2)
-      pdfkit:
-        specifier: ^0.16.0
-        version: 0.16.0
       pg:
         specifier: ^8.13.0
         version: 8.14.1
-      prop-types:
-        specifier: ^15.8.1
-        version: 15.8.1
-      react:
-        specifier: ^18.2.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.3.1(react@18.3.1)
-      react-hook-form:
-        specifier: ^7.54.2
-        version: 7.54.2(react@18.3.1)
-      react-table:
-        specifier: ^7.8.0
-        version: 7.8.0(react@18.3.1)
       stripe:
         specifier: ^17.7.0
         version: 17.7.0

@@ -34,6 +34,15 @@
     "dev": "medusa plugin:develop",
     "prepublishOnly": "medusa plugin:build && tsc --emitDeclarationOnly && npm run copy-assets"
   },
+  "dependencies": {
+    "pdfkit": "^0.16.0",
+    "i18next": "^24.2.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.54.2",
+    "react-table": "^7.8.0",
+    "prop-types": "^15.8.1"
+  },
   "devDependencies": {
     "@medusajs/admin-sdk": "2.6.1",
     "@medusajs/cli": "2.6.1",
@@ -54,14 +63,7 @@
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.2.25",
     "awilix": "^8.0.1",
-    "i18next": "^24.2.3",
-    "pdfkit": "^0.16.0",
     "pg": "^8.13.0",
-    "prop-types": "^15.8.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-hook-form": "^7.54.2",
-    "react-table": "^7.8.0",
     "stripe": "^17.7.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2",
@@ -86,5 +88,8 @@
   },
   "engines": {
     "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
