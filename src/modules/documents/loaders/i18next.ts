@@ -21,7 +21,7 @@ export default async function i18nextLoader({
       `../assets/i18n/locales/fr/translation.json`
     );
     const { default: data } = await import(defaultTranslationsPath, {
-      assert: { type: "json" },
+      with: { type: "json" },
     });
 
     await i18next
@@ -53,7 +53,7 @@ export default async function i18nextLoader({
         `../assets/i18n/locales/${configLanguage}/translation.json`
       );
       const translations = await import(translationPath, {
-        assert: { type: "json" },
+        with: { type: "json" },
       });
       i18next.addResourceBundle(configLanguage, "translation", translations);
       i18next.changeLanguage(configLanguage);
