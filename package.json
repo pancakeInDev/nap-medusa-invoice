@@ -1,7 +1,8 @@
 {
   "name": "@nap-medusa/invoice",
-  "version": "0.0.2",
+  "version": "0.0.14",
   "description": "A simple invoice plugin to generate invoices.",
+  "packageManager": "pnpm@10.7.0",
   "author": "pancakeInDev",
   "license": "MIT",
   "types": "./index.d.ts",
@@ -11,13 +12,16 @@
   ],
   "exports": {
     "./package.json": "./package.json",
+    "./admin/*": "./.medusa/server/src/admin/*.js",
     "./admin/widgets/*": "./.medusa/server/src/admin/widgets/*.js",
+    "./admin/routes/settings/documents/*": "./.medusa/server/src/admin/routes/settings/documents/*.js",
     "./workflows": "./.medusa/server/src/workflows/index.js",
     "./.medusa/server/src/modules/*": "./.medusa/server/src/modules/*/index.js",
     "./modules/*": "./dist/modules/*/index.js",
     "./providers/*": "./.medusa/server/src/providers/*/index.js",
+    "./ui-components/**/*": "./.medusa/server/src/ui-components/**/*.js",
     "./*": "./.medusa/server/src/*.js",
-    "./**/*": "./.medusa/server/src/**/*.d.ts"
+    "./**/*.d.ts": "./.medusa/server/src/**/*.d.ts"
   },
   "keywords": [
     "medusa",
@@ -29,29 +33,28 @@
     "pdf"
   ],
   "scripts": {
-    "build": "medusa plugin:build && tsc --emitDeclarationOnly && npm run copy-assets",
+    "build": "medusa plugin:build && npm run copy-assets",
     "copy-assets": "cp -r src/modules/documents/assets .medusa/server/src/modules/documents/assets",
     "dev": "medusa plugin:develop",
-    "prepublishOnly": "medusa plugin:build && tsc --emitDeclarationOnly && npm run copy-assets"
+    "prepublishOnly": "medusa plugin:build && npm run copy-assets"
   },
   "dependencies": {
-    "pdfkit": "^0.16.0",
     "i18next": "^24.2.3",
+    "pdfkit": "^0.16.0",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.54.2",
-    "react-table": "^7.8.0",
-    "prop-types": "^15.8.1"
+    "react-hook-form": "^7.54.2"
   },
   "devDependencies": {
-    "@medusajs/admin-sdk": "2.6.1",
-    "@medusajs/cli": "2.6.1",
-    "@medusajs/framework": "2.6.1",
-    "@medusajs/icons": "2.6.1",
-    "@medusajs/medusa": "2.6.1",
-    "@medusajs/test-utils": "2.6.1",
+    "@medusajs/admin-sdk": "2.5.1",
+    "@medusajs/cli": "2.5.1",
+    "@medusajs/framework": "2.5.1",
+    "@medusajs/icons": "2.5.1",
+    "@medusajs/medusa": "2.5.1",
+    "@medusajs/test-utils": "2.5.1",
     "@medusajs/ui": "4.0.4",
-    "@medusajs/utils": "^2.6.1",
+    "@medusajs/utils": "^2.5.1",
     "@mikro-orm/cli": "6.4.3",
     "@mikro-orm/core": "6.4.3",
     "@mikro-orm/knex": "6.4.3",
@@ -71,12 +74,12 @@
     "yalc": "^1.0.0-pre.53"
   },
   "peerDependencies": {
-    "@medusajs/admin-sdk": "2.6.1",
-    "@medusajs/cli": "2.6.1",
-    "@medusajs/framework": "2.6.1",
-    "@medusajs/icons": "2.6.1",
-    "@medusajs/medusa": "2.6.1",
-    "@medusajs/test-utils": "2.6.1",
+    "@medusajs/admin-sdk": "2.5.1",
+    "@medusajs/cli": "2.5.1",
+    "@medusajs/framework": "2.5.1",
+    "@medusajs/icons": "2.5.1",
+    "@medusajs/medusa": "2.5.1",
+    "@medusajs/test-utils": "2.5.1",
     "@medusajs/ui": "4.0.3",
     "@mikro-orm/cli": "6.4.3",
     "@mikro-orm/core": "6.4.3",
